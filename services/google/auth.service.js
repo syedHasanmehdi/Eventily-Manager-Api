@@ -25,6 +25,31 @@ const generateAuthUrl = () => {
   return url;
 };
 
+const getUserProfile = async () => {
+  const oauth2 = google.oauth2({ version: "v2", auth: oauth2Client });
+  const userInfo = await oauth2.userinfo.get();
+  return userInfo.data;
+};
 
+async function saveUser(email, googleRefreshToken) {
+  try {
+    let user = await User.findOne({ where: { email } });
 
-export { generateAuthUrl };
+    if (user) {
+      user.googleRefreshToken = googleRefreshToken;
+      await user.save();
+    } else {
+      user = await User.create({ email, googleRefreshToken });
+    }
+
+    return user;
+  } catch (error) {
+    console.error("Error saving user:", error);
+  }
+}
+
+function getJwtToken(payload) {
+  return jwt.sign(payload, config.jwt.JWT_SECRET, { expiresIn: "1d" });
+}
+
+export { generateAuthUrl, getUserProfile, saveUser, getJwtToken, oauth2Client };
