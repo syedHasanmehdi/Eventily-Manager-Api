@@ -4,7 +4,7 @@ import eventsRoutes from "./routes/events.routes.js";
 import express from "express";
 import morgan from "morgan";
 import { config } from "./config/index.js";
-import { connectDB } from "./services/Database/database.js";
+import { connectDB } from "./Database/database.js";
 
 connectDB();
 

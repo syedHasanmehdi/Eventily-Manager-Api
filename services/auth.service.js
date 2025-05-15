@@ -1,7 +1,7 @@
 import { google } from "googleapis";
-import { config } from "../../config/index.js";
-import { User } from "../../models/user.model.js";
-import jwt from 'jsonwebtoken'
+import { config } from "../config/index.js";
+import { User } from "../models/user.model.js";
+import jwt from "jsonwebtoken";
 
 const { client_id, client_secret, redirect_uris } = config.google.web;
 
@@ -11,7 +11,7 @@ const oauth2Client = new google.auth.OAuth2(
   redirect_uris
 );
 
-console.log(client_id,client_secret,redirect_uris);
+console.log(client_id, client_secret, redirect_uris);
 
 const generateAuthUrl = () => {
   const url = oauth2Client.generateAuthUrl({
