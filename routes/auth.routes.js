@@ -11,6 +11,5 @@ router.post("/set-token", setToken);
 
 router.post("/logout", logout);
 
-router.post("/update-discord", updateDiscord);
 
 export default router;
