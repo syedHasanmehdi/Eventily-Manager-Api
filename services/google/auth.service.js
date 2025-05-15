@@ -1,6 +1,7 @@
 import { google } from "googleapis";
 import { config } from "../../config/index.js";
 import { User } from "../../models/user.model.js";
+import jwt from 'jsonwebtoken'
 
 const { client_id, client_secret, redirect_uris } = config.google.web;
 
@@ -9,6 +10,8 @@ const oauth2Client = new google.auth.OAuth2(
   client_secret,
   redirect_uris
 );
+
+console.log(client_id,client_secret,redirect_uris);
 
 const generateAuthUrl = () => {
   const url = oauth2Client.generateAuthUrl({
@@ -45,6 +48,7 @@ async function saveUser(email, googleRefreshToken) {
     return user;
   } catch (error) {
     console.error("Error saving user:", error);
+    throw error; // ✅ ADD THIS LINE
   }
 }
 
