@@ -1,16 +1,16 @@
 import cookieParser from "cookie-parser";
 import authRoutes from "./routes/auth.routes.js";
 import eventsRoutes from "./routes/events.routes.js";
-import express from "express";
+import express, { Application,RequestHandler } from 'express';
 import morgan from "morgan";
 import { config } from "./config/index.js";
 import { connectDB } from "./Database/database.js";
 
 connectDB();
 
-const app = express();
+const app:Application = express();
 app.use(express.json());
-app.use(cookieParser());
+app.use(cookieParser() as RequestHandler);
 
 app.use(morgan("dev"));
 
